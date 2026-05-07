@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buckeye Butterfly Progress</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero-panel" aria-labelledby="app-title">
+        <div class="student-card">
+          <label for="studentName">Student</label>
+          <input id="studentName" type="text" autocomplete="off" value="Avery" />
+        </div>
+
+        <div class="stage-view">
+          <div class="stage-art" id="stageArt" aria-hidden="true"></div>
+          <div class="stage-copy">
+            <p class="eyebrow">Buckeye butterfly break tracker</p>
+            <h1 id="app-title">Classroom Expectations Tracker</h1>
+            <p id="stageMessage">Earn 10 points to unlock break time.</p>
+          </div>
+        </div>
+
+        <div class="progress-wrap" aria-label="Progress to break time">
+          <div class="progress-labels">
+            <span id="stageName">Egg</span>
+            <span><strong id="totalPoints">0</strong> / 10 points</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="stage-markers" aria-hidden="true">
+            <span>Egg</span>
+            <span>Caterpillar</span>
+            <span>Cocoon</span>
+            <span>Butterfly</span>
+          </div>
+          <button class="text-button reset-journey" id="resetJourney" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10M9 7V5h6v2m-7 4v8m4-8v8m4-8v8M5 7l1 14h12l1-14"/></svg>
+            New journey
+          </button>
+        </div>
+      </section>
+
+      <section class="tool-panel" aria-label="Classroom expectation controls">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Today's expectations</p>
+            <h2>Give credit in the moment</h2>
+          </div>
+          <button class="icon-button subtle" id="resetDay" type="button" aria-label="Reset today">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v6h6"/></svg>
+          </button>
+        </div>
+
+        <div class="expectation-grid" id="expectationGrid"></div>
+      </section>
+
+      <section class="summary-panel" aria-label="Progress summary">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Goal</p>
+            <h2>Reward progress</h2>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div>
+            <span id="todayPoints">0</span>
+            <small>points today</small>
+          </div>
+          <div>
+            <span id="breakCount">0</span>
+            <small>breaks earned</small>
+          </div>
+          <div>
+            <span id="nextGoal">6</span>
+            <small>to break</small>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="reward-modal" id="rewardModal" hidden>
+      <div class="reward-card" role="dialog" aria-modal="true" aria-labelledby="rewardTitle">
+        <button class="icon-button reward-close" id="closeReward" type="button" aria-label="Close reward popup">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="reward-art" aria-hidden="true">
+          <svg viewBox="0 0 280 190">
+            <defs>
+              <radialGradient id="rewardWing" cx="50%" cy="45%" r="76%">
+                <stop offset="0" stop-color="#9a6138"/>
+                <stop offset=".62" stop-color="#68412d"/>
+                <stop offset="1" stop-color="#211714"/>
+              </radialGradient>
+            </defs>
+            <path d="M138 79C114 24 59 17 36 61c-22 43 7 83 52 82 20 0 36-8 50-22Z" fill="url(#rewardWing)" stroke="#241714" stroke-width="4.5"/>
+            <path d="M142 79c24-55 79-62 102-18 22 43-7 83-52 82-20 0-36-8-50-22Z" fill="url(#rewardWing)" stroke="#241714" stroke-width="4.5"/>
+            <path d="M137 121c-38 54-85 55-100 20-14-32 21-57 100-54Z" fill="#7c4932" stroke="#241714" stroke-width="4.5"/>
+            <path d="M143 121c38 54 85 55 100 20 14-32-21-57-100-54Z" fill="#7c4932" stroke="#241714" stroke-width="4.5"/>
+            <path d="M54 58c26 24 57 40 86 46M226 58c-26 24-57 40-86 46M58 163c30-22 57-37 82-45M222 163c-30-22-57-37-82-45" stroke="#e0a23a" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M57 79c27 17 54 28 82 32M223 79c-27 17-54 28-82 32M55 110c30 8 58 11 84 8M225 110c-30 8-58 11-84 8" stroke="#ddd4bd" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <circle cx="89" cy="88" r="20" fill="#c86f2d"/><circle cx="89" cy="88" r="14" fill="#17120f"/><circle cx="89" cy="88" r="7" fill="#6e9db0"/><circle cx="85" cy="84" r="2.5" fill="#f2e2bd"/>
+            <circle cx="191" cy="88" r="20" fill="#c86f2d"/><circle cx="191" cy="88" r="14" fill="#17120f"/><circle cx="191" cy="88" r="7" fill="#6e9db0"/><circle cx="187" cy="84" r="2.5" fill="#f2e2bd"/>
+            <circle cx="94" cy="143" r="15" fill="#e0a23a"/><circle cx="94" cy="143" r="9" fill="#17120f"/><circle cx="186" cy="143" r="15" fill="#e0a23a"/><circle cx="186" cy="143" r="9" fill="#17120f"/>
+            <ellipse cx="140" cy="116" rx="9" ry="48" fill="#201817"/>
+            <path d="M136 70c-12-26-31-39-57-44M144 70c12-26 31-39 57-44" stroke="#211714" stroke-width="3.8" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <p class="eyebrow">Goal complete</p>
+        <h2 id="rewardTitle">Break time!</h2>
+      </div>
+    </div>
+
+    <template id="expectationTemplate">
+      <article class="expectation-card">
+        <div class="expectation-icon"></div>
+        <div>
+          <h3></h3>
+          <p></p>
+        </div>
+        <div class="card-actions">
+          <button class="icon-button earn" type="button" aria-label="">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12C9 5 4 5 3 10c-1 5 4 7 8 3"/>
+              <path d="M12 12c3-7 8-7 9-2 1 5-4 7-8 3"/>
+              <path d="M11 13c-4 5-8 4-8 1s4-4 8-2"/>
+              <path d="M13 13c4 5 8 4 8 1s-4-4-8-2"/>
+              <path d="M12 11v8"/>
+            </svg>
+          </button>
+          <strong>0</strong>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
